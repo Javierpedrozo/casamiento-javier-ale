@@ -1,0 +1,51 @@
+# Dependencias
+node_modules/
+package-lock.json
+yarn.lock
+
+# Archivos de entorno y configuración
+.env
+.env.local
+.env*.local
+.env.json
+functions/.env.json
+public/js/firebase-config-SECRET.js
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log
+firebase-debug.*.log
+
+# Emulador
+__pycache__/
+
+# Temporales
+tmp/
+temp/
+.cache/
+
+# Build
+dist/
+build/
+
+# Credenciales y datos sensibles
+serviceAccountKey.json
+google-service-account.json
+*.key
+*.pem

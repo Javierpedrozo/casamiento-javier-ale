@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página oficial de la boda de Javier y Ale - 12 de Diciembre de 2026">
+    <meta name="theme-color" content="#111">
+    <title>Casamiento Javier y Ale - 12 de Diciembre 2026</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+<body>
+
+    <!-- 1. Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Javier & Ale</h1>
+            <h2>¡Nos Casamos!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 40px;">Queremos compartir este momento único con vos.</p>
+            <a href="#asistencia" class="btn btn-primary">Confirmar Asistencia</a>
+        </div>
+    </section>
+
+    <!-- 2. Cuenta Regresiva -->
+    <section id="cuenta-regresiva" class="countdown-section">
+        <h2>Faltan...</h2>
+        <div id="timer" class="countdown">
+            <div class="time-unit">
+                <span id="days">00</span>
+                <p>Días</p>
+            </div>
+            <div class="time-unit">
+                <span id="hours">00</span>
+                <p>Horas</p>
+            </div>
+            <div class="time-unit">
+                <span id="minutes">00</span>
+                <p>Minutos</p>
+            </div>
+            <div class="time-unit">
+                <span id="seconds">00</span>
+                <p>Segundos</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Ubicación -->
+    <section id="ubicacion" class="location-section">
+        <h2>Cuándo y Dónde</h2>
+        <div class="location-content">
+            <div class="location-details">
+                <p class="location-date"><strong>📅 Fecha:</strong> Sábado 12 de Diciembre, 2026</p>
+                <p class="location-time"><strong>🕐 Hora:</strong> 19:00 hs</p>
+                <p class="location-venue"><strong>📍 Salón Los Alamos</strong><br>Av. Siempre Viva 123, Buenos Aires</p>
+            </div>
+            <div id="map-container" style="margin-top: 30px; height: 300px; border-radius: 8px; overflow: hidden;">
+                <!-- Google Maps se cargará aquí -->
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-secondary">Abrir en Google Maps</a>
+        </div>
+    </section>
+
+    <!-- 4. Regalos -->
+    <section id="regalos" class="gifts-section">
+        <h2>Mesa de Regalos</h2>
+        <p>El mejor regalo es tu presencia. Si deseás ayudarnos con la luna de miel:</p>
+        <div class="gift-box">
+            <div class="bank-info">
+                <p><strong>CBU:</strong> <span id="cbu-text">0000000000000000000000</span></p>
+                <p><strong>Alias:</strong> <span id="alias-text">JAVI.ALE.BODA</span></p>
+            </div>
+            <button class="btn btn-primary" onclick="copiarAlias()">Copiar Alias</button>
+            <p class="feedback" id="copy-feedback" style="display: none; color: green; margin-top: 10px;">✓ Alias copiado</p>
+        </div>
+    </section>
+
+    <!-- 5. Formulario RSVP -->
+    <section id="asistencia" class="rsvp-section">
+        <h2>Confirmar Asistencia</h2>
+        <form id="rsvp-form">
+            <div class="form-group">
+                <input type="text" id="nombre" placeholder="Nombre y Apellido" required>
+            </div>
+            <div class="form-group">
+                <select id="asiste" required>
+                    <option value="" disabled selected>¿Asistís al evento?</option>
+                    <option value="si">¡Sí, ahí estaré!</option>
+                    <option value="no">Lamentablemente no podré ir</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Tu email (Opcional)" type="email">
+            </div>
+            <div class="form-group">
+                <input type="text" id="restricciones" placeholder="Restricciones alimentarias (Opcional)">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar Confirmación</button>
+            <p id="form-status" style="margin-top: 10px; display: none;"></p>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Javier & Ale. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Firebase Config -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <!-- Main Script -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

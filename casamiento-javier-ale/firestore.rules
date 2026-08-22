@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Colección de RSVP
+    match /rsvp/{document=**} {
+      // Permitir lectura solo a usuarios autenticados
+      allow read: if true; // Cambiar a: if request.auth != null; si deseas restringir
+      
+      // Permitir crear nuevo documento con los campos requeridos
+      allow create: if request.resource.data.keys().hasAll(['nombre', 'asiste']) &&
+                       request.resource.data.nombre is string &&
+                       request.resource.data.asiste is string &&
+                       request.resource.data.asiste in ['si', 'no'];
+      
+      // No permitir actualizar documentos
+      allow update: if false;
+      
+      // No permitir eliminar documentos
+      allow delete: if false;
+    }
+    
+    // Colección de configuración (solo lectura pública)
+    match /configuracion/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    // Denegar acceso a todas las demás colecciones
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
