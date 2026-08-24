@@ -1,19 +1,24 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 
-// TODO: Reemplaza estos valores con tu configuración de Firebase
+// Tu configuración real de Firebase
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "casamiento-javier-ale.firebaseapp.com",
-    projectId: "casamiento-javier-ale",
-    storageBucket: "casamiento-javier-ale.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDxt4HANeIe6HQexu9orH4v0b2kDBIImrs",
+  authDomain: "casamiento-javier-ale.firebaseapp.com",
+  projectId: "casamiento-javier-ale",
+  storageBucket: "casamiento-javier-ale.firebasestorage.app",
+  messagingSenderId: "937573647166",
+  appId: "1:937573647166:web:d7bbbb55d9cdec2120a26f",
+  measurementId: "G-J72RHZXM6N"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+
+// Initialize Analytics
+export const analytics = getAnalytics(app);
 
 // Initialize Firestore
 export const db = getFirestore(app);
