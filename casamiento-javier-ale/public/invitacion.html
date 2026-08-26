@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Estás Invitado! | Creación Pedrozo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #c5a880; 
+            --bg-color: #fdfcfb;
+            --text-main: #2c2c2c;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-main); text-align: center; transition: all 0.5s; }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        #contenido-invitacion { display: none; }
+
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #e2e8f0; background-size: cover; background-position: center; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); }
+        
+        .hero-content { position: relative; z-index: 1; background: var(--card-bg); padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 85%; max-width: 500px; }
+        #nombres-dinamicos { font-size: 3.5rem; color: var(--text-main); margin-bottom: 10px; text-transform: capitalize; }
+
+        section { padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+        .card { background: var(--card-bg); padding: 30px; border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 30px; }
+        .footer { padding: 20px; background-color: #1a1a1a; color: #fff; font-size: 0.9rem; }
+        .brand { color: var(--primary-color); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            #nombres-dinamicos { font-size: 2.2rem; }
+            .hero-content { padding: 25px 15px; width: 95%; }
+            section { padding: 40px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><h2>Preparando tu invitación...</h2></div>
+
+    <div id="contenido-invitacion">
+        <section class="hero" id="hero-seccion">
+            <div class="hero-content">
+                <h1 id="nombres-dinamicos">Cargando...</h1>
+                <h2 id="tipo-evento-texto" style="color: var(--primary-color); font-style: italic; margin-bottom: 20px;">¡Estás Invitado!</h2>
+                <p>Queremos compartir este momento único con vos.</p>
+            </div>
+        </section>
+
+        <section id="detalles">
+            <h2>Cuándo y Dónde</h2>
+            <div class="card">
+                <p style="font-size: 1.2rem; margin-bottom: 15px;"><strong>📍 Lugar:</strong> <span id="lugar-dinamico">Cargando...</span></p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Diseñado por <span class="brand">Creación Pedrozo</span></p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxt4HANeIe6HQexu9orH4v0b2kDBIImrs",
+            authDomain: "casamiento-javier-ale.firebaseapp.com",
+            databaseURL: "https://casamiento-javier-ale-default-rtdb.firebaseio.com",
+            projectId: "casamiento-javier-ale",
+            storageBucket: "casamiento-javier-ale.firebasestorage.app",
+            messagingSenderId: "937573647166",
+            appId: "1:937573647166:web:54f92c0eff45303a20a26f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+ 
+        const urlParams = new URLSearchParams(window.location.search);
+        const idInvitacion = urlParams.get('id');
+        const tipoEvento = urlParams.get('evento');
+
+        function armarTarjeta(datos) {
+            document.getElementById('nombres-dinamicos').textContent = datos.nombres;
+            document.getElementById('lugar-dinamico').textContent = datos.lugar;
+            
+            // Configuración de temas
+            if (datos.tema === 'moderno') {
+                document.documentElement.style.setProperty('--primary-color', '#3b82f6'); 
+                document.documentElement.style.setProperty('--bg-color', '#1e293b'); 
+                document.documentElement.style.setProperty('--text-main', '#f8fafc'); 
+                document.documentElement.style.setProperty('--card-bg', '#334155'); 
+            } else if (datos.tema === 'romantico') {
+                document.documentElement.style.setProperty('--primary-color', '#db2777'); 
+                document.documentElement.style.setProperty('--bg-color', '#fdf2f8'); 
+                document.documentElement.style.setProperty('--text-main', '#831843'); 
+                document.documentElement.style.setProperty('--card-bg', '#ffffff'); 
+            }
+
+            const subtitulo = document.getElementById('tipo-evento-texto');
+            if(tipoEvento === 'boda') subtitulo.textContent = '¡Nos Casamos!';
+            if(tipoEvento === '15anos') subtitulo.textContent = '¡Mis 15 Años!';
+            if(tipoEvento === 'cumpleanos') subtitulo.textContent = '¡Festejemos Juntos!';
+            if(tipoEvento === 'infantil') subtitulo.textContent = '¡Mi Cumple!';
+            if(tipoEvento === 'baby') subtitulo.textContent = '¡Baby Shower!';
+            if(tipoEvento === 'graduacion') subtitulo.textContent = '¡Me Gradué!';
+
+            if(datos.fotoFondo && datos.fotoFondo.trim() !== "") {
+                document.getElementById('hero-seccion').style.backgroundImage = `url('${datos.fotoFondo}')`;
+            } else {
+                document.getElementById('hero-seccion').style.backgroundImage = `url('https://source.unsplash.com/random/1920x1080/?celebration,elegant')`;
+            }
+
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('contenido-invitacion').style.display = 'block';
+        }
+
+        async function cargarInvitacion() {
+            if (!idInvitacion) return;
+            try {
+                const q = query(collection(db, "invitaciones"), where("idUrl", "==", idInvitacion));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    let datosInvitacion;
+                    querySnapshot.forEach((doc) => { datosInvitacion = doc.data(); });
+                    armarTarjeta(datosInvitacion);
+                } else {
+                    document.getElementById('loader').innerHTML = "<h2>Invitación no encontrada</h2><p>Revisa que el enlace sea correcto.</p>";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('loader').innerHTML = "<h2>Error de servidor</h2><p>No se pudo cargar la invitación.</p>";
+            }
+        }
+        cargarInvitacion();
+    </script>
+</body>
+</html>
