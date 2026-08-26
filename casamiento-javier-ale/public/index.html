@@ -3,111 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Página oficial de la boda de Javier y Ale - 12 de Diciembre de 2026">
-    <meta name="theme-color" content="#111">
-    <title>Casamiento Javier y Ale - 12 de Diciembre 2026</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <title>Panel de Creador | Creación Pedrozo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Librería Cropper.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-main); }
+
+        header { background-color: var(--card-bg); padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        header h1 { color: var(--primary); font-size: 1.5rem; }
+
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        
+        /* Tarjetas de Configuración */
+        .config-card { background: var(--card-bg); padding: 30px; border-radius: var(--radius); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid var(--border); }
+        .config-card h3 { font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--bg-color); padding-bottom: 10px; }
+        
+        /* Grillas de Opciones (Eventos y Temas) */
+        .grid-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
+        .option-box { border: 2px solid var(--border); border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa; }
+        .option-box:hover { border-color: var(--primary); background: #eff6ff; }
+        .option-box.selected { border-color: var(--primary); background: #eff6ff; font-weight: 600; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+        .option-box i { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+
+        /* Formularios */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
+        input[type="text"], input[type="url"], input[type="datetime-local"], select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 1rem; }
+        input[type="file"] { width: 100%; padding: 10px; background: var(--bg-color); border: 1px dashed #cbd5e1; border-radius: 8px; cursor: pointer; }
+        input:focus { outline: none; border-color: var(--primary); }
+
+        /* Controles de Imagen */
+        .image-controls { background: #f8fafc; padding: 15px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; }
+        .image-controls input[type="range"] { width: 100%; margin-top: 5px; }
+
+        /* Botón Final */
+        .btn-submit { width: 100%; padding: 18px; background-color: var(--primary); color: white; border: none; border-radius: var(--radius); font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 15px rgba(37,99,235,0.3); margin-top: 20px; }
+        .btn-submit:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Dos columnas para inputs */
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        #resultado-link { display: none; margin-top: 30px; padding: 20px; background-color: #dcfce7; border: 1px solid #22c55e; border-radius: 8px; text-align: center; }
+        #resultado-link a { color: #166534; font-weight: 700; word-break: break-all; }
+
+        @media (max-width: 600px) {
+            .row { grid-template-columns: 1fr; }
+            .grid-options { grid-template-columns: repeat(2, 1fr); }
+            .config-card { padding: 20px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- 1. Hero Section -->
-    <section class="hero" id="inicio">
-        <div class="hero-content">
-            <h1>Javier & Ale</h1>
-            <h2>¡Nos Casamos!</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 40px;">Queremos compartir este momento único con vos.</p>
-            <a href="#asistencia" class="btn btn-primary">Confirmar Asistencia</a>
-        </div>
-    </section>
+    <header>
+        <h1>Creación Pedrozo - Estudio Studio</h1>
+    </header>
 
-    <!-- 2. Cuenta Regresiva -->
-    <section id="cuenta-regresiva" class="countdown-section">
-        <h2>Faltan...</h2>
-        <div id="timer" class="countdown">
-            <div class="time-unit">
-                <span id="days">00</span>
-                <p>Días</p>
-            </div>
-            <div class="time-unit">
-                <span id="hours">00</span>
-                <p>Horas</p>
-            </div>
-            <div class="time-unit">
-                <span id="minutes">00</span>
-                <p>Minutos</p>
-            </div>
-            <div class="time-unit">
-                <span id="seconds">00</span>
-                <p>Segundos</p>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <form id="creadorProForm">
 
-    <!-- 3. Ubicación -->
-    <section id="ubicacion" class="location-section">
-        <h2>Cuándo y Dónde</h2>
-        <div class="location-content">
-            <div class="location-details">
-                <p class="location-date"><strong>📅 Fecha:</strong> Sábado 12 de Diciembre, 2026</p>
-                <p class="location-time"><strong>🕐 Hora:</strong> 19:00 hs</p>
-                <p class="location-venue"><strong>📍 Salón Los Alamos</strong><br>Av. Siempre Viva 123, Buenos Aires</p>
+            <!-- 1. TIPO DE EVENTO -->
+            <div class="config-card">
+                <h3>🎉 1. ¿Qué estás creando?</h3>
+                <div class="grid-options" id="gridEventos">
+                    <div class="option-box selected" data-value="15anos"><i>👑</i> 15 Años</div>
+                    <div class="option-box" data-value="boda"><i>💍</i> Casamiento</div>
+                    <div class="option-box" data-value="cumple"><i>🎂</i> Cumpleaños</div>
+                    <div class="option-box" data-value="infantil"><i>💙</i> Infantil</div>
+                    <div class="option-box" data-value="baby"><i>👶</i> Baby Shower</div>
+                    <div class="option-box" data-value="graduacion"><i>🎓</i> Graduación</div>
+                </div>
+                <input type="hidden" id="tipoEvento" value="15anos">
             </div>
-            <div id="map-container" style="margin-top: 30px; height: 300px; border-radius: 8px; overflow: hidden;">
-                <!-- Google Maps se cargará aquí -->
-            </div>
-            <a href="https://maps.google.com" target="_blank" class="btn btn-secondary">Abrir en Google Maps</a>
-        </div>
-    </section>
 
-    <!-- 4. Regalos -->
-    <section id="regalos" class="gifts-section">
-        <h2>Mesa de Regalos</h2>
-        <p>El mejor regalo es tu presencia. Si deseás ayudarnos con la luna de miel:</p>
-        <div class="gift-box">
-            <div class="bank-info">
-                <p><strong>CBU:</strong> <span id="cbu-text">0000000000000000000000</span></p>
-                <p><strong>Alias:</strong> <span id="alias-text">JAVI.ALE.BODA</span></p>
+            <!-- 2. DISEÑO / PLANTILLA -->
+            <div class="config-card">
+                <h3>🎨 2. Elegí un estilo</h3>
+                <div class="grid-options" id="gridTemas">
+                    <div class="option-box selected" data-value="romantico"><i>🌸</i> Romántico</div>
+                    <div class="option-box" data-value="elegante"><i>👑</i> Elegante</div>
+                    <div class="option-box" data-value="luxury"><i>✨</i> Luxury</div>
+                    <div class="option-box" data-value="noche"><i>🌌</i> Noche</div>
+                    <div class="option-box" data-value="floral"><i>🌿</i> Floral</div>
+                    <div class="option-box" data-value="glamour"><i>💎</i> Glamour</div>
+                </div>
+                <input type="hidden" id="temaElegido" value="romantico">
             </div>
-            <button class="btn btn-primary" onclick="copiarAlias()">Copiar Alias</button>
-            <p class="feedback" id="copy-feedback" style="display: none; color: green; margin-top: 10px;">✓ Alias copiado</p>
-        </div>
-    </section>
 
-    <!-- 5. Formulario RSVP -->
-    <section id="asistencia" class="rsvp-section">
-        <h2>Confirmar Asistencia</h2>
-        <form id="rsvp-form">
-            <div class="form-group">
-                <input type="text" id="nombre" placeholder="Nombre y Apellido" required>
+            <!-- 3. FOTO PORTADA & ANIMACIÓN -->
+            <div class="config-card">
+                <h3>🖼️ 3. Portada y Apertura</h3>
+                <div class="form-group">
+                    <label>📸 Foto Principal de Portada</label>
+                    <input type="file" id="fotoPortada" accept="image/*">
+                    
+                    <div id="preview-container" style="display: none; margin-top: 15px; text-align: center;">
+                        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 5px;">Tu foto recortada (lista para la tarjeta):</p>
+                        <img id="preview-img" src="" style="max-width: 200px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    </div>
+
+                    <div class="image-controls">
+                        <label>Oscurecer fondo (Overlay):</label>
+                        <input type="range" min="0" max="100" value="40">
+                        <label style="margin-top: 10px;">Desenfocar fondo (Blur):</label>
+                        <input type="range" min="0" max="10" value="0">
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="animacionEntrada" checked style="width: 20px; height: 20px;">
+                    <label style="margin: 0;">✨ Activar Animación Cinemática de Inicio</label>
+                </div>
             </div>
-            <div class="form-group">
-                <select id="asiste" required>
-                    <option value="" disabled selected>¿Asistís al evento?</option>
-                    <option value="si">¡Sí, ahí estaré!</option>
-                    <option value="no">Lamentablemente no podré ir</option>
-                </select>
+
+            <!-- 4. DATOS Y CUENTA REGRESIVA -->
+            <div class="config-card">
+                <h3>⏳ 4. Detalles del Evento</h3>
+                <div class="form-group">
+                    <label>Nombre(s) del Homenajeado(a)</label>
+                    <input type="text" id="nombres" placeholder="Ej: Mabel" required>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Fecha y Hora (Cuenta Regresiva)</label>
+                        <input type="datetime-local" id="fechaEvento" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Música de Fondo (URL o MP3)</label>
+                        <input type="text" id="musica" placeholder="Ej: URL de Spotify o MP3">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="email" id="email" placeholder="Tu email (Opcional)" type="email">
+
+            <!-- 5. UBICACIÓN -->
+            <div class="config-card">
+                <h3>📍 5. ¿Dónde es?</h3>
+                <div class="form-group">
+                    <label>Nombre del Salón / Lugar</label>
+                    <input type="text" id="nombreLugar" placeholder="Ej: Salón Los Jardines" required>
+                </div>
+                <div class="form-group">
+                    <label>Dirección Exacta</label>
+                    <input type="text" id="direccion" placeholder="Ej: Av. Las Magnolias 123, Pilar">
+                </div>
+                <div class="form-group">
+                    <label>Link de Google Maps</label>
+                    <input type="url" id="linkMaps" placeholder="https://maps.app.goo.gl/...">
+                </div>
             </div>
-            <div class="form-group">
-                <input type="text" id="restricciones" placeholder="Restricciones alimentarias (Opcional)">
+
+            <!-- 6. GALERÍA -->
+            <div class="config-card">
+                <h3>📷 6. Mis Momentos (Galería)</h3>
+                <div class="form-group">
+                    <label>Subir hasta 10 fotos</label>
+                    <input type="file" id="galeriaFotos" accept="image/*" multiple>
+                </div>
+                <div class="form-group">
+                    <label>Estilo de visualización</label>
+                    <select id="estiloGaleria">
+                        <option value="carrusel">Carrusel Deslizable</option>
+                        <option value="mosaico">Mosaico (Grid)</option>
+                    </select>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar Confirmación</button>
-            <p id="form-status" style="margin-top: 10px; display: none;"></p>
+
+            <!-- 7. REGALOS -->
+            <div class="config-card">
+                <h3>🎁 7. Mesa de Regalos</h3>
+                <div class="form-group">
+                    <label>Mensaje para invitados</label>
+                    <input type="text" id="mensajeRegalo" value="Tu presencia es nuestro mejor regalo ❤️. Si deseás ayudarnos:">
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>CBU / CVU</label>
+                        <input type="text" id="cbu" placeholder="000000000000000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Alias</label>
+                        <input type="text" id="alias" placeholder="MABEL.15.FIESTA">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Link Lista de Regalos (Opcional)</label>
+                    <input type="url" id="linkRegalos" placeholder="Link de Fravega, Amazon, etc.">
+                </div>
+            </div>
+
+            <!-- 8. ASISTENCIA -->
+            <div class="config-card">
+                <h3>💌 8. Confirmación (RSVP)</h3>
+                <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="activarAsistencia" checked style="width: 20px; height: 20px;">
+                    <label style="margin: 0;">Activar botón de confirmar asistencia</label>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Los invitados podrán seleccionar la cantidad de acompañantes y notificar restricciones alimentarias.</p>
+            </div>
+
+            <button type="submit" class="btn-submit">🚀 Generar Tarjeta Profesional</button>
+
+            <div id="resultado-link">
+                <p style="color: #166534; margin-bottom: 10px;">¡Tu invitación está lista! Compártela con tus invitados:</p>
+                <a href="#" id="linkGenerado" target="_blank"></a>
+            </div>
         </form>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2026 Javier & Ale. Todos los derechos reservados.</p>
-    </footer>
+    <!-- MODAL DE RECORTAR FOTO -->
+    <div id="cropperModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: white; padding: 20px; border-radius: 12px; width: 100%; max-width: 500px; text-align: center;">
+            <h3 style="margin-bottom: 15px; color: #1e293b;">Ajusta tu foto</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">Arrastra y usa el zoom para centrar la imagen.</p>
+            
+            <div style="width: 100%; max-height: 50vh; overflow: hidden; margin-bottom: 20px;">
+                <img id="imageToCrop" src="" style="max-width: 100%; display: block;">
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button type="button" id="btnCancelCrop" style="background: #ef4444; color: white; border: none; border-radius: 8px; width: 50%; padding: 12px; cursor: pointer; font-weight: bold;">Cancelar</button>
+                <button type="button" id="btnSaveCrop" style="background: #10b981; color: white; border: none; border-radius: 8px; width: 50%; padding: 12px; cursor: pointer; font-weight: bold;">✅ Confirmar</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- Firebase Config -->
-    <script type="module" src="js/firebase-config.js"></script>
-    <!-- Main Script -->
-    <script src="js/main.js"></script>
+    <!-- SCRIPT FIREBASE Y LÓGICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxt4HANeIe6HQexu9orH4v0b2kDBIImrs",
+            authDomain: "casamiento-javier-ale.firebaseapp.com",
+            databaseURL: "https://casamiento-javier-ale-default-rtdb.firebaseio.com",
+            projectId: "casamiento-javier-ale",
+            storageBucket: "casamiento-javier-ale.firebasestorage.app",
+            messagingSenderId: "937573647166",
+            appId: "1:937573647166:web:54f92c0eff45303a20a26f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Selección en Grillas
+        function configurarGrilla(idContenedor, idInputOculto) {
+            const contenedor = document.getElementById(idContenedor);
+            const opciones = contenedor.querySelectorAll('.option-box');
+            const input = document.getElementById(idInputOculto);
+
+            opciones.forEach(opcion => {
+                opcion.addEventListener('click', () => {
+                    opciones.forEach(opt => opt.classList.remove('selected'));
+                    opcion.classList.add('selected');
+                    input.value = opcion.getAttribute('data-value');
+                });
+            });
+        }
+        configurarGrilla('gridEventos', 'tipoEvento');
+        configurarGrilla('gridTemas', 'temaElegido');
+
+        // Cropper.js
+        let cropper;
+        let fotoPortadaBlob = null; 
+
+        const fotoInput = document.getElementById('fotoPortada');
+        const cropperModal = document.getElementById('cropperModal');
+        const imageToCrop = document.getElementById('imageToCrop');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImg = document.getElementById('preview-img');
+        const btnCancelCrop = document.getElementById('btnCancelCrop');
+        const btnSaveCrop = document.getElementById('btnSaveCrop');
+
+        fotoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imageToCrop.src = event.target.result;
+                    cropperModal.style.display = 'flex';
+                    if (cropper) cropper.destroy(); 
+                    cropper = new Cropper(imageToCrop, {
+                        aspectRatio: 9 / 16, 
+                        viewMode: 1, 
+                        dragMode: 'move', 
+                        background: false
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        btnCancelCrop.addEventListener('click', function() {
+            cropperModal.style.display = 'none';
+            fotoInput.value = ''; 
+            if (cropper) cropper.destroy();
+        });
+
+        btnSaveCrop.addEventListener('click', function() {
+            if (!cropper) return;
+            const canvas = cropper.getCroppedCanvas({ width: 720, height: 1280 });
+            previewImg.src = canvas.toDataURL('image/jpeg', 0.8);
+            previewContainer.style.display = 'block';
+
+            canvas.toBlob(function(blob) {
+                fotoPortadaBlob = blob; 
+            }, 'image/jpeg', 0.8);
+
+            cropperModal.style.display = 'none';
+            cropper.destroy();
+        });
+
+        // Guardar en Firebase
+        document.getElementById('creadorProForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+
+            const btn = document.querySelector('.btn-submit');
+            btn.disabled = true;
+
+            const nombres = document.getElementById('nombres').value.trim();
+            const tipo = document.getElementById('tipoEvento').value;
+            const tema = document.getElementById('temaElegido').value;
+            const lugar = document.getElementById('nombreLugar').value.trim();
+            
+            const idBase = nombres.replace(/\s+/g, '-').toLowerCase();
+            const idUnico = Math.floor(Math.random() * 10000);
+            const slugFinal = `${idBase}-${idUnico}`;
+            
+            let fotoUrlFinal = "";
+
+            try {
+                if (fotoPortadaBlob) {
+                    btn.textContent = "Subiendo imagen (aguarda un momento)...";
+                    const storageRef = ref(storage, `fondos_invitaciones/${slugFinal}_portada.jpg`);
+                    await uploadBytes(storageRef, fotoPortadaBlob);
+                    fotoUrlFinal = await getDownloadURL(storageRef);
+                }
+
+                btn.textContent = "Guardando configuración de la tarjeta...";
+                await addDoc(collection(db, "invitaciones"), {
+                    idUrl: slugFinal,
+                    nombres: nombres,
+                    tipo: tipo,
+                    tema: tema,
+                    lugar: lugar,
+                    fotoFondo: fotoUrlFinal, 
+                    fechaCreacion: new Date()
+                });
+
+                const dominio = window.location.origin;
+                const linkFinal = `${dominio}/invitacion.html?evento=${tipo}&id=${slugFinal}`;
+                
+                const cajaResultado = document.getElementById('resultado-link');
+                const enlaceTexto = document.getElementById('linkGenerado');
+                
+                enlaceTexto.href = linkFinal;
+                enlaceTexto.textContent = linkFinal;
+                cajaResultado.style.display = 'block';
+                
+                btn.textContent = "¡Tarjeta Generada con Éxito!";
+                btn.style.backgroundColor = "#166534"; 
+                
+            } catch (error) {
+                console.error("Error al guardar: ", error);
+                alert("Hubo un error de conexión con la base de datos.");
+                btn.textContent = "🚀 Generar Tarjeta Profesional";
+                btn.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
